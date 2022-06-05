@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>fresh-xy-starter</artifactId>
+        <groupId>com.fresh.xy</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <groupId>com.fresh.xy</groupId>
+    <artifactId>xy-mybatisplus-starter</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>xy-mybatisplus-starter</name>
+    <description>xy-mybatisplus-starter</description>
+
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
+    <dependencies>
+        <!-- xy-common -->
+        <dependency>
+            <groupId>com.fresh.xy</groupId>
+            <artifactId>xy-common</artifactId>
+        </dependency>
+        <!-- mybatis-plus,因为xy-common依赖于mybaits-plus的枚举注解，entity注解，所以移动到xy-common -->
+        <!--<dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>-->
+        <!-- jdbc -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

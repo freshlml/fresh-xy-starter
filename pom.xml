@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>xy-common</module>
+        <module>xy-mybatis-starter</module>
+        <module>xy-mybatisplus-starter</module>
+        <module>xy-redis-starter</module>
+        <module>xy-rmq-starter</module>
+    </modules>
+    <parent>
+        <artifactId>fresh-common-dependencies</artifactId>
+        <groupId>com.fresh</groupId>
+        <version>1.0.0</version>
+    </parent>
+
+    <groupId>com.fresh.xy</groupId>
+    <artifactId>fresh-xy-starter</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>fresh-xy-starter</name>
+    <description>fresh-xy-starter</description>
+    <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+    <scm>
+        <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+    </scm>
+
+    <properties>
+        <skipTests>true</skipTests>
+
+        <!-- fresh-common版本变动时，修改此处 -->
+        <fresh-common.version>1.0.0</fresh-common.version>
+        <!-- 当xy-common版本变动时，修改此处 -->
+        <xy-common.version>1.0.0</xy-common.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fresh</groupId>
+                <artifactId>fresh-common</artifactId>
+                <version>${fresh-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fresh.xy</groupId>
+                <artifactId>xy-common</artifactId>
+                <version>${xy-common.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
