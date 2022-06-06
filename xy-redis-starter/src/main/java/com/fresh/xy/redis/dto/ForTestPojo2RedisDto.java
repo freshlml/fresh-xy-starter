@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pojo2RedisDto {
+public class ForTestPojo2RedisDto {
     private Long id;
     private Boolean bl;
     private Short s;

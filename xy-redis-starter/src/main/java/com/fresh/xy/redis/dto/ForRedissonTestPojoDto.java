@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RedissonPojoDto implements Serializable {
+public class ForRedissonTestPojoDto implements Serializable {
     private Long id;
     private Boolean bl;
     private Short s;

@@ -1,7 +1,7 @@
 package com.fresh.xy.redis;
 
-import com.fresh.xy.redis.dto.RedissonPojoDto;
-import com.fresh.xy.redis.enums.PojoDtoEnum;
+import com.fresh.xy.redis.dto.ForRedissonTestPojoDto;
+import com.fresh.xy.redis.enums.ForRedisTestPojoDtoEnum;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import org.redisson.Redisson;
@@ -58,13 +58,13 @@ public class FlRedissonApi {
             RBinaryStream bytesStream = redissonClient.getBinaryStream("bytesStream");
 
             BigDecimal bd = new BigDecimal("8.9999011231312312312323123123123123123123123123123123123123123123123123123234434541353453645364356421432423");
-            RedissonPojoDto pojo = RedissonPojoDto.builder()
+            ForRedissonTestPojoDto pojo = ForRedissonTestPojoDto.builder()
                    .id(1234534535354L)
                    .bl(false)
                    .s(null)
                    .name("just pojo哒哒哒")
                    .bd(bd)
-                   .pojoType(PojoDtoEnum.SYSTEM.getValue())
+                   .pojoType(ForRedisTestPojoDtoEnum.SYSTEM.getValue())
                    .pojoTime(LocalDateTime.now())
                    .build();
             //FstCodec
@@ -80,10 +80,10 @@ public class FlRedissonApi {
             //4.反序列化 TODO,State？
             ByteBuf buf = Unpooled.wrappedBuffer(bytesObj);
             Object des = fstCodec.getValueDecoder().decode(buf, null);
-            RedissonPojoDto desObj = (RedissonPojoDto) des;
+            ForRedissonTestPojoDto desObj = (ForRedissonTestPojoDto) des;
             //5.和RBucket<RedissonPojoDto>在Redis中保存的数据格式是一样的，因此，可以用bucket读binary保存的数据
-            RBucket<RedissonPojoDto> pojoBucket = redissonClient.getBucket("bytesStream");
-            RedissonPojoDto pojoObj = pojoBucket.get();
+            RBucket<ForRedissonTestPojoDto> pojoBucket = redissonClient.getBucket("bytesStream");
+            ForRedissonTestPojoDto pojoObj = pojoBucket.get();
 
             //Jackson
             //TODO  JsonJacksonCodec中使用的ObjectMapper的默认配置和RedisTemplate中正在用的有些不同
@@ -100,7 +100,7 @@ public class FlRedissonApi {
             //4.反序列化 TODO,State？
             ByteBuf jbuf = Unpooled.wrappedBuffer(jbytesObj);
             Object jdes = jacksonCodec.getValueDecoder().decode(jbuf, null);
-            RedissonPojoDto jdesObj = (RedissonPojoDto) jdes;
+            ForRedissonTestPojoDto jdesObj = (ForRedissonTestPojoDto) jdes;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -156,32 +156,32 @@ public class FlRedissonApi {
         localDateTimeBucket.set(LocalDateTime.now());
         LocalDateTime localDateTimeObj = localDateTimeBucket.get();
 
-        RedissonPojoDto pojo = RedissonPojoDto.builder()
+        ForRedissonTestPojoDto pojo = ForRedissonTestPojoDto.builder()
                 .id(1234534535354L)
                 .bl(false)
                 .s(null)
                 .name("just pojo哒哒哒")
                 .bd(bd)
-                .pojoType(PojoDtoEnum.SYSTEM.getValue())
+                .pojoType(ForRedisTestPojoDtoEnum.SYSTEM.getValue())
                 .pojoTime(LocalDateTime.now())
                 .build();
-        RBucket<RedissonPojoDto> pojoBucket = redissonClient.getBucket("PojoBucket");
+        RBucket<ForRedissonTestPojoDto> pojoBucket = redissonClient.getBucket("PojoBucket");
         pojoBucket.set(pojo);
-        RedissonPojoDto pojoObj = pojoBucket.get();
+        ForRedissonTestPojoDto pojoObj = pojoBucket.get();
 
 
-        List<RedissonPojoDto> list = new ArrayList<>();
+        List<ForRedissonTestPojoDto> list = new ArrayList<>();
         list.add(pojo);
-        RBucket<List<RedissonPojoDto>> pojoListBucket = redissonClient.getBucket("PojoListBucket");
+        RBucket<List<ForRedissonTestPojoDto>> pojoListBucket = redissonClient.getBucket("PojoListBucket");
         pojoListBucket.set(list);
-        List<RedissonPojoDto> pojoListObj = pojoListBucket.get();
+        List<ForRedissonTestPojoDto> pojoListObj = pojoListBucket.get();
 
 
-        Map<String, RedissonPojoDto> map = new HashMap<>();
+        Map<String, ForRedissonTestPojoDto> map = new HashMap<>();
         map.put("pojo1", pojo);
-        RBucket<Map<String, RedissonPojoDto>> pojoMapBucket = redissonClient.getBucket("PojoMapBucket");
+        RBucket<Map<String, ForRedissonTestPojoDto>> pojoMapBucket = redissonClient.getBucket("PojoMapBucket");
         pojoMapBucket.set(map);
-        Map<String, RedissonPojoDto> pojoMapObj = pojoMapBucket.get();
+        Map<String, ForRedissonTestPojoDto> pojoMapObj = pojoMapBucket.get();
 
 
 
@@ -250,24 +250,24 @@ public class FlRedissonApi {
 
         //redis based impl of java.util.concurrent.ConcurrentHashMap
         //在redis中使用key-hash存储，hash-key,hash-value默认使用FstCodec序列化和反序列化
-        RMap<String, RedissonPojoDto> map = redissonClient.getMap("myMap"); //key,一个key在redis cluster中打到一个槽节点，可以使用redisson的内部分片
+        RMap<String, ForRedissonTestPojoDto> map = redissonClient.getMap("myMap"); //key,一个key在redis cluster中打到一个槽节点，可以使用redisson的内部分片
         BigDecimal bd = new BigDecimal("8.9999011231312312312323123123123123123123123123123123123123123123123123123234434541353453645364356421432423");
-        RedissonPojoDto pojo = RedissonPojoDto.builder()
+        ForRedissonTestPojoDto pojo = ForRedissonTestPojoDto.builder()
                 .id(1234534535354L)
                 .bl(false)
                 .s(null)
                 .name("just pojo哒哒哒")
                 .bd(bd)
-                .pojoType(PojoDtoEnum.SYSTEM.getValue())
+                .pojoType(ForRedisTestPojoDtoEnum.SYSTEM.getValue())
                 .pojoTime(LocalDateTime.now())
                 .build();
         map.put("pojo1", pojo);  //sync: hash-key,hash-value
         map.put("pojo2", pojo);  //sync: hash-key,hash-value
-        RFuture<RedissonPojoDto> fut = map.putAsync("pojo3", pojo); //async: hash-key,hash-value
+        RFuture<ForRedissonTestPojoDto> fut = map.putAsync("pojo3", pojo); //async: hash-key,hash-value
         fut.whenComplete( (c, e) -> {
             System.out.println("put suc: " + c);
         });
-        Set<Map.Entry<String, RedissonPojoDto>> mapObjs = map.entrySet();
+        Set<Map.Entry<String, ForRedissonTestPojoDto>> mapObjs = map.entrySet();
 
 
         redissonClient.shutdown();

@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Arrays;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum PojoAnoEnum {
+public enum ForRedisTestPojoAnoEnum {
     SYSTEM("SYSTEM", "系统");
 
     private String value;
     private String text;
 
-    PojoAnoEnum(String value, String text) {
+    ForRedisTestPojoAnoEnum(String value, String text) {
         this.value = value;
         this.text = text;
     }
@@ -26,8 +26,8 @@ public enum PojoAnoEnum {
     }
 
     @JsonCreator
-    public static PojoAnoEnum getByValue(String value) {
-        return Arrays.stream(PojoAnoEnum.values()).filter(scan -> scan.getValue().equals(value)).findFirst().orElse(null);
+    public static ForRedisTestPojoAnoEnum getByValue(String value) {
+        return Arrays.stream(ForRedisTestPojoAnoEnum.values()).filter(scan -> scan.getValue().equals(value)).findFirst().orElse(null);
     }
 
 }

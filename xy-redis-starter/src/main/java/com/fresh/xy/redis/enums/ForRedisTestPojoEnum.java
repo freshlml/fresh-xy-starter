@@ -1,14 +1,13 @@
 package com.fresh.xy.redis.enums;
 
 
-public enum PojoEnum {
+public enum ForRedisTestPojoEnum {
     SYSTEM("SYSTEM", "系统");
 
     private String value;
-
     private String text;
 
-    PojoEnum(String value, String text) {
+    ForRedisTestPojoEnum(String value, String text) {
         this.value = value;
         this.text = text;
     }
