@@ -10,8 +10,8 @@
     </parent>
     <groupId>com.fresh.xy</groupId>
     <artifactId>xy-common</artifactId>
-    <!-- 当前版本号1.0.0，如果1.0.0稳定后，继续开发1.0.1，则将版本号改成1.0.1 -->
-    <version>1.0.0</version>
+    <!-- 随着项目版本的变动而变动 -->
+    <version>${xy-common.version}</version>
     <packaging>jar</packaging>
     <name>xy-common</name>
     <description>xy-common</description>
