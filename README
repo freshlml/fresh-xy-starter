@@ -5,7 +5,7 @@ com.fresh.xy:fresh-xy-starter
 线上: 需要将fresh-xy-starter及其子module打包到远端仓库
 
 子module是fresh桶的xy项目的common依赖，子module不应该依赖于xy项目的服务从而形成相互依赖
-对此pom打包，将自生及所有子module打包
+对此pom打包，将自身及所有子module打包
 
 子module单独打包:
     如xy-common单独打包:
