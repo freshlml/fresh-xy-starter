@@ -10,8 +10,6 @@
     </parent>
     <groupId>com.fresh.xy</groupId>
     <artifactId>xy-mybatis-starter</artifactId>
-    <!-- 当发生修改后一般会维持版本号不变
-         当改动不能向前兼容时，需要向前推进一个版本号，下层则可以依赖于新版本和旧版本 -->
     <version>${xy-mybatis.version}</version>
     <packaging>jar</packaging>
     <name>xy-mybatis-starter</name>

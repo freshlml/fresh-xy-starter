@@ -18,9 +18,7 @@
 
     <groupId>com.fresh.xy</groupId>
     <artifactId>fresh-xy-starter</artifactId>
-    <!-- 当parent,fresh-common.version，xy-common.version，xy-mybatis.version
-     xy-mybatisplus.version，xy-redis.version，xy-rmq.version中
-     任意版本号变更时，此版本号向前推进-->
+    <!-- 随着项目版本的变动而变动 -->
     <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>fresh-xy-starter</name>
@@ -36,7 +34,7 @@
         <!-- 此处引用的fresh-common版本 -->
         <fresh-common.version>1.0.0</fresh-common.version>
 
-        <!-- 控制子module的版本 -->
+        <!-- 控制子module的版本，随着项目版本的变动而变动 -->
         <xy-common.version>1.0.0</xy-common.version>
         <xy-mybatis.version>1.0.0</xy-mybatis.version>
         <xy-mybatisplus.version>1.0.0</xy-mybatisplus.version>
