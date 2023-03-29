@@ -12,7 +12,8 @@ fresh-xy-starter 工程为 fresh 桶的xy项目的starter
 
 子module单独打包。没有-am参数，子module依赖于此starter中其他子module时，打包失败。  
 
--am参数。在pom结构中子module单独打包时，会将依赖同时打包。  
+-am参数。子module单独打包时，会将此module依赖的其他子module同时打包。  
 
+子module不应相互依赖。  
 
 
