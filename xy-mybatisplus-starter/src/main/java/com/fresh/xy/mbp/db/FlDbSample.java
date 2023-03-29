@@ -2,7 +2,7 @@ package com.fresh.xy.mbp.db;
 
 public class FlDbSample {
     /**
-     * 接入mybatis-plus
+     *接入mybatis-plus
      * mybatis-plus-boot-starter,jdbc,druid-spring-boot-starter
      * auto config: datasource,sqlSessionFactory,...
      *
@@ -32,15 +32,13 @@ public class FlDbSample {
      *     url: jdbc:mysql://127.0.0.1:3306/sample?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
      *
      * 3、mybatis-plus配置
-     *  ##mybatis-plus start
+     *
      *  mybatis-plus:
-     *    ##mapper映射文件扫描
      *    mapper-locations:
      *    - classpath*:...
-     *    -classpath*:...
-     *    ##mybatis plus通用枚举扫描
+     *    - classpath*:...
      *    typeEnumsPackage: com.**.enums
-     *  ##mybatis-plus end
+     *
      * 4、MybatisPlusConfig配置类
      *
      *
