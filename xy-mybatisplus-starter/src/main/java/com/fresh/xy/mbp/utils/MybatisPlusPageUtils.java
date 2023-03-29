@@ -15,7 +15,7 @@ public class MybatisPlusPageUtils {
         return pageParam;
     }
 
-    public <T> PageJsonResultVo<T> pageJsonResultVo(IPage<T> page) {
+    public static <T> PageJsonResultVo<T> pageJsonResultVo(IPage<T> page) {
         PageJsonResultVo<T> pageJsonResultVo = new PageJsonResultVo<>();
         pageJsonResultVo.setPage(page.getCurrent())
                 .setPageSize(page.getSize())

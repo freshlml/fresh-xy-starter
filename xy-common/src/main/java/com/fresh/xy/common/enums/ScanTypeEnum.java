@@ -3,6 +3,7 @@ package com.fresh.xy.common.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.Arrays;
 
@@ -18,7 +19,7 @@ import java.util.Arrays;
  *   2).去掉@JsonFormat，使用@JsonValue和@JsonCreator，这样序列化和反序列化都是走String
  *
  */
-@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+//@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ScanTypeEnum {
     SYSTEM("SYSTEM", "系统");
 
@@ -31,6 +32,7 @@ public enum ScanTypeEnum {
         this.text = text;
     }
 
+    @JsonValue
     public String getValue() {
         return value;
     }
