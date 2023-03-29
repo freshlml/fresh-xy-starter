@@ -13,7 +13,7 @@
     <parent>
         <artifactId>fresh-common-dependencies</artifactId>
         <groupId>com.fresh</groupId>
-        <version>1.0.0</version>  <!-- 此处引用的fresh-common-dependencies版本 -->
+        <version>1.0.0</version>
     </parent>
 
     <groupId>com.fresh.xy</groupId>
@@ -31,7 +31,7 @@
     <properties>
         <skipTests>true</skipTests>
 
-        <!-- 此处引用的fresh-common版本 -->
+        <!-- fresh-common版本 -->
         <fresh-common.version>1.0.0</fresh-common.version>
 
         <!-- 控制子module的版本，随着项目版本的变动而变动 -->

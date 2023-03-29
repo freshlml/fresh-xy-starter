@@ -26,7 +26,8 @@
             <artifactId>fresh-common</artifactId>
         </dependency>
 
-        <!-- mybatis-plus,@see xy-mybatisplus-starter -->
+        <!-- mybatis-plus, 本应该在xy-mybatisplus-starter中。
+        因为xy-common依赖于mybaits-plus的枚举注解，entity注解，所以移动到xy-common -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
