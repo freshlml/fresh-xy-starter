@@ -9,11 +9,13 @@
         <module>xy-mybatisplus-starter</module>
         <module>xy-redis-starter</module>
         <module>xy-rmq-starter</module>
+        <module>xy-service-sample-api</module>
+        <module>xy-service-sample2-api</module>
     </modules>
     <parent>
         <artifactId>fresh-common-dependencies</artifactId>
         <groupId>com.fresh</groupId>
-        <version>1.0.0</version>
+        <version>1.0.0</version> <!-- fresh-common-dependencies的版本号 -->
     </parent>
 
     <groupId>com.fresh.xy</groupId>
@@ -40,6 +42,8 @@
         <xy-mybatisplus.version>1.0.0</xy-mybatisplus.version>
         <xy-redis.version>1.0.0</xy-redis.version>
         <xy-rmq.version>1.0.0</xy-rmq.version>
+        <xy-service-sample-api.version>1.0.0</xy-service-sample-api.version>
+        <xy-service-sample2-api.version>1.0.0</xy-service-sample2-api.version>
     </properties>
 
     <dependencyManagement>
@@ -73,6 +77,16 @@
                 <groupId>com.fresh.xy</groupId>
                 <artifactId>xy-rmq-starter</artifactId>
                 <version>${xy-rmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fresh.xy</groupId>
+                <artifactId>xy-service-sample-api</artifactId>
+                <version>${xy-service-sample-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fresh.xy</groupId>
+                <artifactId>xy-service-sample2-api</artifactId>
+                <version>${xy-service-sample2-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
