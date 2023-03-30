@@ -16,8 +16,7 @@ import java.time.LocalDateTime;
 public abstract class BaseEntity<ID> implements Serializable {
 
 	private static final long serialVersionUID = 4864980818782455146L;
-	
-	//雪花策略
+
 	@TableId
 	private ID id;
 
