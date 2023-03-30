@@ -1,6 +1,3 @@
-/**
- * Copyright (c) 2019, zhonglian . All rights reserved. Use is subject to license terms.
- */
 package com.fresh.xy.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
