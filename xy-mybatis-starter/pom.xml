@@ -24,6 +24,12 @@
         <dependency>
             <groupId>com.fresh.xy</groupId>
             <artifactId>xy-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- mybatis -->
         <dependency>
