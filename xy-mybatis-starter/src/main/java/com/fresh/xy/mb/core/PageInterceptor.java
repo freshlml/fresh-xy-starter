@@ -1,14 +1,20 @@
 package com.fresh.xy.mb.core;
 
+import org.apache.ibatis.builder.StaticSqlSource;
+import org.apache.ibatis.executor.Executor;
+import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.*;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.session.RowBounds;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +41,7 @@ public class PageInterceptor implements Interceptor {
         BoundSql boundSql = (BoundSql) metaObject.getValue("delegate.boundSql");
 
         //获取入参，并解析入参
+        Configuration configuration = (Configuration) metaObject.getValue("delegate.configuration");
         Object parameterObject = boundSql.getParameterObject();
         if(parameterObject == null) {
             return invocation.proceed();
@@ -66,14 +73,54 @@ public class PageInterceptor implements Interceptor {
             return invocation.proceed();
         }
 
-        //todo: 执行count，写入page.total, page.pages
+        //count
+        Executor executor = (Executor) metaObject.getValue("delegate.executor"); //?
+
+        String countSql = "select count(*) from ( " + boundSql.getSql() + " ) alias"; //todo, sql分析，创建count sql
+        BoundSql countBoundSql = new BoundSql(configuration, countSql, boundSql.getParameterMappings(), parameterObject); //additionalParameters?
+
+        List<ResultMap> count_resultMaps = new ArrayList<ResultMap>();
+        ResultMap count_resultMap = new ResultMap.Builder(configuration, mappedStatement.getId() + "_count" + "-inline", Long.class, new ArrayList<>()).build();
+        count_resultMaps.add(count_resultMap);
+        SqlSource countSqlSource = new StaticSqlSource(configuration, countSql, boundSql.getParameterMappings());
+        MappedStatement count_ms = new MappedStatement.Builder(configuration, mappedStatement.getId() + "_count", countSqlSource, SqlCommandType.SELECT)
+                .resultMaps(count_resultMaps)
+                .fetchSize(mappedStatement.getFetchSize()) //?
+                .timeout(mappedStatement.getTimeout())
+                .cache(null)
+                .flushCacheRequired(false)
+                .useCache(false)
+                .resultOrdered(false) //?
+                .keyProperty(null) //?
+                .keyColumn(null) //?
+                .databaseId(mappedStatement.getDatabaseId()) //?
+                .resultSets(null) //?
+                .build();
+
+        RowBounds countRowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");  //?
+        ResultHandler countResultHandler = null; //?
+
+        StatementHandler countStatementHandler =
+                new RoutingStatementHandler(executor, count_ms, parameterObject, countRowBounds, countResultHandler, countBoundSql);
+
+        Connection connection = (Connection) invocation.getArgs()[0];
+        Statement stmt = countStatementHandler.prepare(connection, executor.getTransaction().getTimeout());
+        countStatementHandler.parameterize(stmt);
+        Long total = (Long) countStatementHandler.query(stmt, null).get(0);
+        page.setTotal(total);
+        long pages = 0;
+        if(page.getPageSize() > 0) {
+            pages = total / page.getPageSize();
+            if(total % page.getPageSize() != 0) pages++;
+        }
+        page.setPages(pages);
+
 
         //拼接limit ? ?, todo: dialect
         String sql = boundSql.getSql();
         sql += " limit ?, ?";
         metaObject.setValue("delegate.boundSql.sql", sql);
 
-        Configuration configuration = (Configuration) metaObject.getValue("delegate.configuration");
         List<ParameterMapping> parameterMappings = new ArrayList<>(boundSql.getParameterMappings());
         String pagePrefix = (pageKey == null) ? "" : pageKey + ".";
         parameterMappings.add(new ParameterMapping.Builder(configuration, pagePrefix + "offset", Long.class).build());
