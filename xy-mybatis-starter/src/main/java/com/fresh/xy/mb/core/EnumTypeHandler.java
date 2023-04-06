@@ -1,5 +1,6 @@
 package com.fresh.xy.mb.core;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeException;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+@Slf4j
 public class EnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
 
     private final Class<E> enumClass;
@@ -40,6 +42,7 @@ public class EnumTypeHandler<E extends Enum<E>> extends BaseTypeHandler<E> {
     public void setNonNullParameter(PreparedStatement ps, int i, E parameter, JdbcType jdbcType) throws SQLException {
         Object enumValue = findEnumValue(parameter); //notify: 如果parameter不为null, enumValue也不应该为null
         if(enumValue == null) {
+            log.warn("为了保持sql语句中<if>标签的逻辑一致性，如果枚举不为null，根据枚举解析的值也应该不为null");
             if(jdbcType == null) {
                 jdbcType = JdbcType.OTHER;
             }
