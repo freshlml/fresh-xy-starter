@@ -9,16 +9,12 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 @Intercepts({@Signature(type = StatementHandler.class,
         method="prepare", args={Connection.class, Integer.class})})
@@ -27,7 +23,7 @@ public class PageInterceptor implements Interceptor {
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         //获取被代理对象(可能多层)
-        StatementHandler statementHandler = realTarget(invocation.getTarget());
+        StatementHandler statementHandler = (StatementHandler) realTarget(invocation.getTarget());
 
         //非SELECT语句和CallableStatementHandler 不分页
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
@@ -98,10 +94,10 @@ public class PageInterceptor implements Interceptor {
                 .build();
 
         RowBounds countRowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");  //?
-        ResultHandler countResultHandler = null; //?
+        //ResultHandler countResultHandler = null; //?
 
         StatementHandler countStatementHandler =
-                new RoutingStatementHandler(executor, count_ms, parameterObject, countRowBounds, countResultHandler, countBoundSql);
+                new RoutingStatementHandler(executor, count_ms, parameterObject, countRowBounds, null, countBoundSql);
 
         Connection connection = (Connection) invocation.getArgs()[0];
         Statement stmt = countStatementHandler.prepare(connection, executor.getTransaction().getTimeout());
@@ -140,12 +136,54 @@ public class PageInterceptor implements Interceptor {
         //
     }
 
-    public static <T> T realTarget(Object target) {
+    private static Object realTarget(Object target) {
         if (Proxy.isProxyClass(target.getClass())) {
             MetaObject metaObject = SystemMetaObject.forObject(target);
             return realTarget(metaObject.getValue("h.target"));
         }
-        return (T) target;
+        return target;
     }
+
+
+    public static String countSql(String rawSql) {
+        //去除order by
+        /*int idx = rawSql.lastIndexOf("order by");
+        if(idx != -1 && !rawSql.substring(idx).contains(")")) {
+            rawSql = rawSql.substring(0, idx);
+        }*/
+
+        //count sql
+        StringTokenizer stringTokenizer = new StringTokenizer(rawSql, " \t\n\r\f(", false);
+        int depth = 0;
+        int selectIndex = -1;
+        int fromIndex = -1;
+        boolean distinct = false;
+
+        while(stringTokenizer.hasMoreTokens()) {
+            String token = stringTokenizer.nextToken();
+
+            if("select".equalsIgnoreCase(token)) {
+                if(depth == 0) {
+                    selectIndex = rawSql.indexOf(token);
+                }
+                depth++;
+            } else if("from".equalsIgnoreCase(token)) {
+                depth--;
+                if(depth == 0) {
+                    fromIndex = rawSql.lastIndexOf(token);
+                    break;
+                }
+            } else if("distinct".equalsIgnoreCase(token) && depth == 1) {
+                distinct = true;
+            }
+        }
+
+        if(!distinct) {
+            return rawSql.substring(0, selectIndex + 6) + " count(*) " + rawSql.substring(fromIndex);
+        }
+
+        return "select count(*) from ( " + rawSql + " ) alias";
+    }
+
 
 }
