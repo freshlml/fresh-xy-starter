@@ -1,5 +1,6 @@
 package com.fresh.xy.mb.core;
 
+import com.fresh.common.sqlsyntax.SelectParser;
 import org.apache.ibatis.builder.StaticSqlSource;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
@@ -69,13 +70,18 @@ public class PageInterceptor implements Interceptor {
             return invocation.proceed();
         }
 
-        //count
+        String sql = boundSql.getSql();
+        SelectParser selectParser = new SelectParser();
+        selectParser.parse(sql);
+
+
+        //// count
         Executor executor = (Executor) metaObject.getValue("delegate.executor"); //?
 
-        String countSql = "select count(*) from ( " + boundSql.getSql() + " ) alias"; //todo, sql分析，创建count sql
+        String countSql = selectParser.countSql();
         BoundSql countBoundSql = new BoundSql(configuration, countSql, boundSql.getParameterMappings(), parameterObject); //additionalParameters?
 
-        List<ResultMap> count_resultMaps = new ArrayList<ResultMap>();
+        List<ResultMap> count_resultMaps = new ArrayList<>();
         ResultMap count_resultMap = new ResultMap.Builder(configuration, mappedStatement.getId() + "_count" + "-inline", Long.class, new ArrayList<>()).build();
         count_resultMaps.add(count_resultMap);
         SqlSource countSqlSource = new StaticSqlSource(configuration, countSql, boundSql.getParameterMappings());
@@ -112,10 +118,9 @@ public class PageInterceptor implements Interceptor {
         page.setPages(pages);
 
 
-        //拼接limit ? ?, todo: dialect
-        String sql = boundSql.getSql();
-        sql += " limit ?, ?";
-        metaObject.setValue("delegate.boundSql.sql", sql);
+        ////page
+        String pageSql = selectParser.pageSql();
+        metaObject.setValue("delegate.boundSql.sql", pageSql);
 
         List<ParameterMapping> parameterMappings = new ArrayList<>(boundSql.getParameterMappings());
         String pagePrefix = (pageKey == null) ? "" : pageKey + ".";
@@ -143,47 +148,5 @@ public class PageInterceptor implements Interceptor {
         }
         return target;
     }
-
-
-    public static String countSql(String rawSql) {
-        //去除order by
-        /*int idx = rawSql.lastIndexOf("order by");
-        if(idx != -1 && !rawSql.substring(idx).contains(")")) {
-            rawSql = rawSql.substring(0, idx);
-        }*/
-
-        //count sql
-        StringTokenizer stringTokenizer = new StringTokenizer(rawSql, " \t\n\r\f(", false);
-        int depth = 0;
-        int selectIndex = -1;
-        int fromIndex = -1;
-        boolean distinct = false;
-
-        while(stringTokenizer.hasMoreTokens()) {
-            String token = stringTokenizer.nextToken();
-
-            if("select".equalsIgnoreCase(token)) {
-                if(depth == 0) {
-                    selectIndex = rawSql.indexOf(token);
-                }
-                depth++;
-            } else if("from".equalsIgnoreCase(token)) {
-                depth--;
-                if(depth == 0) {
-                    fromIndex = rawSql.lastIndexOf(token);
-                    break;
-                }
-            } else if("distinct".equalsIgnoreCase(token) && depth == 1) {
-                distinct = true;
-            }
-        }
-
-        if(!distinct) {
-            return rawSql.substring(0, selectIndex + 6) + " count(*) " + rawSql.substring(fromIndex);
-        }
-
-        return "select count(*) from ( " + rawSql + " ) alias";
-    }
-
 
 }
