@@ -24,11 +24,9 @@ public class RedisConfig {
     @Bean
     public RedisSerializer<Object> jacksonValueRedisSerializer(/*, ObjectMapper om*/) {
         //ObjectMapper omToUse = om.copy();
+
         ObjectMapper omToUse = new ObjectMapper();
         omToUse.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        //序列化时将类型信息写入json串
-        //反序列化调用的的是    objectMapper.readValue(..., Object); 将使用json串中类型信息
-        //or 将发序列化拿出来: 1、genericRedisTemplate读取出bytes;2、FlCustomSerializer.deserialize(..., Type信息);TODO:如果这样===>1、还是将类型信息写入json串(推荐);2、不将类型信息写入(存在限制)
         omToUse.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         omToUse.registerModule(JacksonUtils.defaultJavaTimeModule());
 
