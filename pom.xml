@@ -44,6 +44,9 @@
         <xy-rmq.version>1.0.0</xy-rmq.version>
         <xy-service-sample-api.version>1.0.0</xy-service-sample-api.version>
         <xy-service-sample2-api.version>1.0.0</xy-service-sample2-api.version>
+
+        <!--mysql version -->
+        <mysql.version>8.0.29</mysql.version>
     </properties>
 
     <dependencyManagement>
@@ -87,6 +90,12 @@
                 <groupId>com.fresh.xy</groupId>
                 <artifactId>xy-service-sample2-api</artifactId>
                 <version>${xy-service-sample2-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
