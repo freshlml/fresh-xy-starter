@@ -38,7 +38,10 @@ public interface Sample2ServiceApi {
     JsonResult<PageJsonResultVo<Sample2ScanBo>> listByParams(@RequestParam("id") Long id, @RequestParam("scanType") ScanTypeEnum scanType, @RequestParam("scanTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime scanTime, @RequestParam("page") Long page, @RequestParam("pageSize") Long pageSize);
 
     @PostMapping("/sample2ScanApi/save")
-    JsonResult save(@RequestBody Sample2ScanAddBo scanAddBo);
+    JsonResult<?> save(@RequestBody Sample2ScanAddBo scanAddBo);
+
+    @PostMapping("/sample2ScanApi/save2")
+    JsonResult<?> save2(@RequestBody Sample2ScanAddBo scanAddBo);
 
     //TODO hystrix配置特别是线程池配置使并发容量满足要求，feign配置，ribbon配置
 }

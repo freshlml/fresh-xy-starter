@@ -46,4 +46,9 @@ public class Sample2ServiceApiFallback implements Sample2ServiceApi {
         return JsonResult.buildFailedResult("save调用失败,Sample2Service");
     }
 
+    @Override
+    public JsonResult<?> save2(Sample2ScanAddBo scanAddBo) {
+        return JsonResult.buildFailedResult("save2调用失败,Sample2Service");
+    }
+
 }

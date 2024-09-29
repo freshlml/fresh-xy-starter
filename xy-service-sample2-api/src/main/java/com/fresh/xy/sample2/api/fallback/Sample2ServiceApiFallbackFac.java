@@ -55,6 +55,12 @@ public class Sample2ServiceApiFallbackFac implements FallbackFactory<Sample2Serv
                 throwable.printStackTrace();
                 return JsonResult.buildFailedResult("save调用失败,Sample2Service");
             }
+
+            @Override
+            public JsonResult<?> save2(Sample2ScanAddBo scanAddBo) {
+                throwable.printStackTrace();
+                return JsonResult.buildFailedResult("save2调用失败,Sample2Service");
+            }
         };
     }
 }
