@@ -1,6 +1,6 @@
 package com.fresh.xy.rmq.config;
 
-import com.fresh.common.utils.AssertUtils;
+import com.fresh.core.utils.AssertUtils;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

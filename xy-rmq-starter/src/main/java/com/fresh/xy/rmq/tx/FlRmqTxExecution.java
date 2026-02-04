@@ -1,7 +1,7 @@
 package com.fresh.xy.rmq.tx;
 
-import com.fresh.common.utils.AssertUtils;
-import com.fresh.common.utils.ReflectUtils;
+import com.fresh.core.utils.AssertUtils;
+import com.fresh.core.utils.ReflectUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

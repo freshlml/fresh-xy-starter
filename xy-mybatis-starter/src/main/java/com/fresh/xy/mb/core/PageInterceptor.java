@@ -1,6 +1,6 @@
 package com.fresh.xy.mb.core;
 
-import com.fresh.common.sqlsyntax.SelectParser;
+import com.fresh.core.sqlsyntax.SelectParser;
 import org.apache.ibatis.builder.StaticSqlSource;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;

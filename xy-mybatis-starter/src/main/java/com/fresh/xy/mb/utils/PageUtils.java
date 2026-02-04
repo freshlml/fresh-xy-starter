@@ -1,6 +1,6 @@
 package com.fresh.xy.mb.utils;
 
-import com.fresh.common.result.PageJsonResultVo;
+import com.fresh.core.result.PageJsonResultVo;
 import com.fresh.xy.common.dto.PageDto;
 import com.fresh.xy.mb.core.Page;
 

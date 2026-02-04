@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.api.feign;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

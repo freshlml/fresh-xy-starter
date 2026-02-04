@@ -1,7 +1,7 @@
 package com.fresh.xy.sample2.api.fallback;
 
-import com.fresh.common.result.JsonResult;
-import com.fresh.common.result.PageJsonResultVo;
+import com.fresh.core.result.JsonResult;
+import com.fresh.core.result.PageJsonResultVo;
 import com.fresh.xy.common.enums.ScanTypeEnum;
 import com.fresh.xy.sample2.api.Sample2ServiceApi;
 import com.fresh.xy.sample2.api.bo.Sample2ScanAddBo;

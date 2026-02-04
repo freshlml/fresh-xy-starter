@@ -1,6 +1,6 @@
 package com.fresh.xy.rmq.config;
 
-import com.fresh.common.exception.BizException;
+import com.fresh.core.exception.BizException;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerOrderly;
 import org.apache.rocketmq.client.exception.MQClientException;

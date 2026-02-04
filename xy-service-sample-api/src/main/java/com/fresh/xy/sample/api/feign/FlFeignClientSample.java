@@ -1,6 +1,6 @@
 package com.fresh.xy.sample.api.feign;
 
-import com.fresh.common.result.JsonResult;
+import com.fresh.core.result.JsonResult;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

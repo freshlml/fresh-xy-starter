@@ -1,7 +1,7 @@
 package com.fresh.xy.redis.config;
 
 
-import com.fresh.common.exception.BizException;
+import com.fresh.core.exception.BizException;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.api.RedissonReactiveClient;

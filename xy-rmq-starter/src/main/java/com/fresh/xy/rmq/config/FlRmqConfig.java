@@ -1,8 +1,8 @@
 package com.fresh.xy.rmq.config;
 
-import com.fresh.common.exception.BizException;
-import com.fresh.common.utils.AssertUtils;
-import com.fresh.common.utils.BeanUtils;
+import com.fresh.core.exception.BizException;
+import com.fresh.core.utils.AssertUtils;
+import com.fresh.core.utils.BeanUtils;
 import com.fresh.xy.common.constants.RmqConstants;
 import com.fresh.xy.rmq.tx.RmqTxListenerService;
 import com.fresh.xy.rmq.tx.RmqTxModel;

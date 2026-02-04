@@ -2,7 +2,7 @@ package com.fresh.xy.mbp.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.fresh.common.result.PageJsonResultVo;
+import com.fresh.core.result.PageJsonResultVo;
 import com.fresh.xy.common.dto.PageDto;
 
 

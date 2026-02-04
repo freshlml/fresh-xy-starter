@@ -3,6 +3,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/>
+    </parent>
     <modules>
         <module>xy-common</module>
         <module>xy-mybatis-starter</module>
@@ -12,11 +19,6 @@
         <module>xy-service-sample-api</module>
         <module>xy-service-sample2-api</module>
     </modules>
-    <parent>
-        <artifactId>fresh-common-dependencies</artifactId>
-        <groupId>com.fresh</groupId>
-        <version>1.0.0</version> <!-- fresh-common-dependencies的版本号 -->
-    </parent>
 
     <groupId>com.fresh.xy</groupId>
     <artifactId>fresh-xy-starter</artifactId>
@@ -26,12 +28,56 @@
     <name>fresh-xy-starter</name>
     <description>fresh-xy-starter</description>
     <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+    <licenses>
+        <license>
+            <name>freshlml</name>
+            <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>freshlml</name>
+            <email>1326191992@qq.com</email>
+            <organization>freshlml</organization>
+            <organizationUrl>https://www.github.com/freshlml/</organizationUrl>
+        </developer>
+    </developers>
     <scm>
         <url>https://www.github.com/freshlml/fresh-xy-starter</url>
     </scm>
 
+    <!-- 定义distribution地址,用于deploy -->
+    <!--<distributionManagement></distributionManagement>-->
+
+    <!-- 定义远端仓库地址 -->
+    <!--<repositories></repositories>-->
+    <!--<pluginRepositories></pluginRepositories>-->
+
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <skipTests>true</skipTests>
+
+        <!-- 与parent中version保持一致 -->
+        <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+        <!-- https://spring.io/projects/spring-cloud#overview  -->
+        <!-- Greenwich版本release notes
+            https://github.com/spring-projects/spring-cloud/wiki/Spring-Cloud-Greenwich-Release-Notes
+        -->
+        <!-- D:\calm\Java_Member\19_md_result\Spring Cloud Greenwich 中文文档.html -->
+        <spring-cloud.version>Greenwich.SR1</spring-cloud.version>
+        <!-- https://github.com/alibaba/spring-cloud-alibaba -->
+        <spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
+
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis-spring.version>2.2.2</mybatis-spring.version>
+        <druid.version>1.1.20</druid.version>
+        <rocketmq-version>4.5.0</rocketmq-version>
+        <java-jwt.version>3.8.0</java-jwt.version>
+        <mysql.version>8.0.29</mysql.version>
 
         <!-- fresh-common版本 -->
         <fresh-common.version>1.0.0</fresh-common.version>
@@ -44,13 +90,83 @@
         <xy-rmq.version>1.0.0</xy-rmq.version>
         <xy-service-sample-api.version>1.0.0</xy-service-sample-api.version>
         <xy-service-sample2-api.version>1.0.0</xy-service-sample2-api.version>
-
-        <!--mysql version -->
-        <mysql.version>8.0.29</mysql.version>
     </properties>
+
+    <!-- 未激活任何 profile -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <package.environment>dev</package.environment>
+            </properties>
+            <!--<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>-->
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <package.environment>test</package.environment>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <package.environment>prod</package.environment>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
+            <!-- spring cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring cloud alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>${java-jwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.fresh</groupId>
                 <artifactId>fresh-common</artifactId>
@@ -91,13 +207,82 @@
                 <artifactId>xy-service-sample2-api</artifactId>
                 <version>${xy-service-sample2-api.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>dev/*</exclude>
+                    <exclude>test/*</exclude>
+                    <exclude>prod/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${package.environment}</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                    <include>**/*.xsd</include>
+                    <include>**/*.dtd</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal> <!-- bind default to lifecycle phase: package -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- javadoc插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <charset>${project.reporting.outputEncoding}</charset>
+                    <docencoding>${project.reporting.outputEncoding}</docencoding>
+
+                    <!-- todo: markdown格式注释 -->
+                    <!--<doclet>ch.raffael.doclets.pegdown.PegdownDoclet</doclet>
+                    <docletArtifact>
+                        <groupId>ch.raffael.pegdown-doclet</groupId>
+                        <artifactId>pegdown-doclet</artifactId>
+                        <version>1.3</version>   
+                    </docletArtifact>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
