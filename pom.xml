@@ -21,17 +21,17 @@
     </modules>
 
     <groupId>com.fresh.xy</groupId>
-    <artifactId>fresh-xy-starter</artifactId>
+    <artifactId>xy-common-parent</artifactId>
     <!-- 随着项目版本的变动而变动 -->
     <version>1.0.0</version>
     <packaging>pom</packaging>
-    <name>fresh-xy-starter</name>
-    <description>fresh-xy-starter</description>
-    <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+    <name>xy-common-parent</name>
+    <description>xy-common-parent</description>
+    <url>https://www.github.com/freshlml/xy-common-parent</url>
     <licenses>
         <license>
             <name>freshlml</name>
-            <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+            <url>https://www.github.com/freshlml/xy-common-parent</url>
         </license>
     </licenses>
     <developers>
@@ -43,7 +43,7 @@
         </developer>
     </developers>
     <scm>
-        <url>https://www.github.com/freshlml/fresh-xy-starter</url>
+        <url>https://www.github.com/freshlml/xy-common-parent</url>
     </scm>
 
     <!-- 定义distribution地址,用于deploy -->
