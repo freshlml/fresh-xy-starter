@@ -13,7 +13,7 @@ xy 项目由多个程序（工程）组成：
 | xy-service-sample | com.fresh.xy | xy-service-sample | com.fresh.xy.sample |
 | xy-service-sample2 | com.fresh.xy | xy-service-sample2 | com.fresh.xy.sample2 |
 
-xy 项目下多个程序（工程）有相同的 groupId，多个程序（工程）通过 artifactId 区分。多个程序（工程）有不同的 package name。  
+xy 项目下多个程序（工程）有相同的 groupId: com.fresh.xy，多个程序（工程）通过 artifactId 区分。多个程序（工程）有不同的 package name。  
 
 xy-common-parent 为 xy 项目的公共 maven 配置依赖，其 pom.xml 中写入公共的 maven 配置，以上工程 pom.xml 均继承自 xy-common-parent。  
 
