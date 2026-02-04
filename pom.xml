@@ -79,8 +79,8 @@
         <java-jwt.version>3.8.0</java-jwt.version>
         <mysql.version>8.0.29</mysql.version>
 
-        <!-- fresh-common版本 -->
-        <fresh-common.version>1.0.0</fresh-common.version>
+        <!-- fresh-core 版本 -->
+        <fresh-core.version>1.0.0</fresh-core.version>
 
         <!-- 控制子module的版本，随着项目版本的变动而变动 -->
         <xy-common.version>1.0.0</xy-common.version>
@@ -169,8 +169,8 @@
 
             <dependency>
                 <groupId>com.fresh</groupId>
-                <artifactId>fresh-common</artifactId>
-                <version>${fresh-common.version}</version>
+                <artifactId>fresh-core</artifactId>
+                <version>${fresh-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fresh.xy</groupId>

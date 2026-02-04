@@ -20,10 +20,10 @@
     </properties>
 
     <dependencies>
-        <!-- fresh-common -->
+        <!-- fresh-core -->
         <dependency>
             <groupId>com.fresh</groupId>
-            <artifactId>fresh-common</artifactId>
+            <artifactId>fresh-core</artifactId>
         </dependency>
 
         <!-- mybatis-plus, 本应该在xy-mybatisplus-starter中。
