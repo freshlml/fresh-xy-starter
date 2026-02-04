@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fresh.core.exception.BizException;
-import com.fresh.core.utils.JacksonUtils;
+import com.fresh.xy.common.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.Charset;
