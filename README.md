@@ -16,7 +16,8 @@ xy 项目由多个程序（工程）组成：
 xy 项目下多个程序（工程）有相同的 groupId: com.fresh.xy，多个程序（工程）通过 artifactId 区分，工程名称一般与 artifactId 相同，
 artifactId 带有项目名称前缀，打包名称默认为 artifactId-version。多个程序（工程）有不同的 package name。  
 
-xy-common-parent 为 xy 项目的公共 maven 配置依赖，其 pom.xml 中写入公共的 maven 配置，以上工程 pom.xml 均继承自 xy-common-parent。  
+xy-common-parent 为 xy 项目的公共 maven 配置依赖，其 pom.xml 中写入公共的 maven 配置，以上工程 pom.xml 均继承自 xy-common-parent。
+xy-common-parent 的 groupId: com.fresh.xy。  
 
 像 xy-common, xy-mybatis-starter, xy-mybatisplus-starter, xy-redis-starter, xy-rmq-starter 这些程序（工程）属于比较公共的包。
 为了方便管理，将他们作为 xy-common-parent 的子 module 维护。（在 xy-common-parent 这一级目录创建 git 仓库）  
