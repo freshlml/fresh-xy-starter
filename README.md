@@ -13,25 +13,25 @@ xy 项目由多个程序（工程）组成：
 | xy-service-sample | com.fresh.xy | xy-service-sample | com.fresh.xy.sample |
 | xy-service-sample2 | com.fresh.xy | xy-service-sample2 | com.fresh.xy.sample2 |
 
-xy 项目下多个程序（工程）有相同的 groupId: com.fresh.xy，多个程序（工程）通过 artifactId 区分。多个程序（工程）有不同的 package name。  
+xy 项目下多个程序（工程）有相同的 groupId: com.fresh.xy，多个程序（工程）通过 artifactId 区分，工程名称一般与 artifactId 相同，
+artifactId 带有项目名称前缀，打包名称默认为 artifactId-version。多个程序（工程）有不同的 package name。  
 
 xy-common-parent 为 xy 项目的公共 maven 配置依赖，其 pom.xml 中写入公共的 maven 配置，以上工程 pom.xml 均继承自 xy-common-parent。  
 
 像 xy-common, xy-mybatis-starter, xy-mybatisplus-starter, xy-redis-starter, xy-rmq-starter 这些程序（工程）属于比较公共的包。
 为了方便管理，将他们作为 xy-common-parent 的子 module 维护。（在 xy-common-parent 这一级目录创建 git 仓库）  
 
+xy-common-parent 之外的程序（工程）依赖 xy-common-parent 之中的程序（工程）而不能反向依赖。  
+
+xy-common-parent 中的程序（工程）不应该循环依赖。  
+
 xy-service-sample-api 是从 xy-service-sample 抽取出来创建的程序，其 groupId: com.fresh.xy，artifactId: xy-service-sample-api，
-package: com.fresh.xy.sample 与 xy-service-sample 一致，但注意在 xy-service-sample-api 中 sample 下面的子 package 不能与
-xy-service-sample 中 sample 下面的子 package 重名。xy-service-sample2-api 同理。  
+package: com.fresh.xy.sample 与 xy-service-sample 一致，因此注意在 xy-service-sample-api 中 com.fresh.xy.sample 下面的子 package 不能与
+xy-service-sample 中 com.fresh.xy.sample 下面的子 package 重名。xy-service-sample2-api 同理。  
 
-为什么要从 xy-service-sample 抽取出 xy-service-sample-api，主要是为了避免循环依赖...  
+为什么要从 xy-service-sample 抽取出 xy-service-sample-api，主要是为了避免服务间调用出现循环依赖...  
 
-# xy-common-parent 说明
-什么样的程序（工程）应该放到 xy-common-parent 中。应是 xy 项目中比较公共的部分，放置到 xy-common-parent 中的程序（工程）不应该依赖 xy 项目
-下放置在 xy-common-parent 之外的程序（工程）而是相反方向依赖。  
-
-xy-common-parent 中的程序（工程）不应该相互依赖。  
-
+# xy-common-parent 打包说明
 一般对此 parent 打包，会将自身即所有子 module 打包。  
 
 子 module 单独打包。没有 -am 参数，假设仓库里面没有此 parent, 或者仓库里面 parent 不是最新的。则此子 module 打的包是无效的（不能被其他工程依赖）。  
