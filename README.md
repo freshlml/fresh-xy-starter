@@ -27,8 +27,7 @@ xy-common-parent 之外的程序（工程）依赖 xy-common-parent 之中的程
 xy-common-parent 中的程序（工程）不应该循环依赖。  
 
 xy-service-sample-api 是从 xy-service-sample 抽取出来创建的程序，其 groupId: com.fresh.xy，artifactId: xy-service-sample-api，
-package: com.fresh.xy.sample 与 xy-service-sample 一致，因此注意在 xy-service-sample-api 中 com.fresh.xy.sample 下面的子 package 不能与
-xy-service-sample 中 com.fresh.xy.sample 下面的子 package 重名。xy-service-sample2-api 同理。  
+package: com.fresh.xy.sample.api，要注意在 xy-service-sample 中 com.fresh.xy.sample 下面不能再出现不能再出现 api 子 package，否则容易冲突。xy-service-sample2-api 同理。  
 
 为什么要从 xy-service-sample 抽取出 xy-service-sample-api，主要是为了避免服务间调用出现循环依赖...  
 
